@@ -8,6 +8,11 @@ This directory contains Arduino libraries for all of the movement code for the r
 
 Move the folder `alarm_clock_movement` into the the `C:\Program Files\\(x86)\\Arduino\\Libraries` or the install location libraries directory to add the source code as an Arduino library. 
 
+## TODO:
+Movement is not stright, adjust the speed values and record the 
+proper percentages (approximate) to make the alarm clock go 
+perfectly straight.
+
 ## Libraries Included
 
 `alarm_clock_motor_movement`

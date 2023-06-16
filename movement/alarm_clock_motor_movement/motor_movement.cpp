@@ -10,7 +10,8 @@
 */
 
 #include "motor_movement.h"
-#include "Arduino.h"
+#include <Arduino.h>
+
 
 /**
  * Initializes the I/O for both DC Motors through an Arduino Nano
@@ -24,7 +25,7 @@ void DC_Motor::motor_init() {
     pinMode(STANDBY, OUTPUT);
 
     digitalWrite(STANDBY, HIGH);
-}
+};
 
 /**
  * Halts the alarm clock
@@ -34,7 +35,7 @@ void DC_Motor::stop() {
     digitalWrite(BIN1, LOW);
     analogWrite(PWM_LEFT, 0);
     analogWrite(PWM_RIGHT, 0);
-}
+};
 
 /**
  * Moves the alarm clock forward at a specific speed
@@ -45,7 +46,7 @@ void DC_Motor::forward(int speed) {
     digitalWrite(BIN1, 0);
     analogWrite(PWM_LEFT, speed);
     analogWrite(PWM_RIGHT, speed);
-}
+};
 
 /**
  * Moves the alarm clock backward at a specified speed
@@ -56,7 +57,7 @@ void DC_Motor::backward(int speed) {
     digitalWrite(BIN1, 1);
     analogWrite(PWM_LEFT, speed);
     analogWrite(PWM_RIGHT, speed);
-}
+};
 
 /**
  * Moves the alarm clock left by turning one single motor
@@ -68,16 +69,16 @@ void DC_Motor::turn_left(int speed) {
     digitalWrite(BIN1, 1);
     analogWrite(PWM_LEFT, speed);
     analogWrite(PWM_RIGHT, 0);
-}
+};
 
 /**
  * Moves the alarm clock right by turning one single motor
  * @param speed Defined speed within 1 to 255 (inclusive) for the single motor
  * to spin
 */
-void DC_Motor::turn_left(int speed) {
+void DC_Motor::turn_right(int speed) {
     digitalWrite(AIN1, 1);
     digitalWrite(BIN1, 1);
     analogWrite(PWM_LEFT, 0);
     analogWrite(PWM_RIGHT, speed);
-}
+};

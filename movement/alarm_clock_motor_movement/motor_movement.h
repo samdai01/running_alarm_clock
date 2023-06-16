@@ -44,7 +44,7 @@ class DC_Motor {
         #define PWM_LEFT 5
         #define PWM_RIGHT 6
         #define STANDBY 8
-}
+};
 
 
 #endif
