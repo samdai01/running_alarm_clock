@@ -28,12 +28,18 @@ void setup() {
 * Forever function that loops consecutively 
 */
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
   dc_motor.stop();
   delay(2000);                      // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-  dc_motor.forward(120);
+  dc_motor.forward(255);
   delay(2000);                      // wait for a second
-  dc_motor.backward(120);
+  dc_motor.backward(255);
+  delay(2000);
+  dc_motor.turn_left(255);
+  delay(2000);
+  dc_motor.forward(255);
+  delay(2000);
+  dc_motor.backward(255);
+  delay(2000);
+  dc_motor.turn_left(255);
   delay(2000);
 }
