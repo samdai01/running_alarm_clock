@@ -13,5 +13,4 @@
 - minimum speed of 1.5 meters per second or walking speed
 - ability to avoid obstacles in the forward periphery of the vehicle
 - Loud speakers to create disruption -> good range is an iPhone 13 on maximum volume
-- easily accesible button for use during chase sequences
-- due to the two wheeled nature of the buggy, the ability to self balance itself and not rely on the rear "ramp"
+- easily accesible button for use during chase sequences or an easy way to pick up the buggy
