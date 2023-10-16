@@ -1,3 +1,14 @@
+/**
+ * @file motor.cpp
+ * @author Sam Dai (daisam1215@gmail.com)
+ * @brief Functions to control buggy motors
+ * @date 2023-10-04
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+/* Include Statements */
 #include "motor.h"
 
 void motor::motorInit(void) {
