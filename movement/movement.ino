@@ -11,7 +11,7 @@
 #include <avr/wdt.h>
 #include "motor.h"
 
-motor alarm_clock_motor;
+Motor alarm_clock_motor;
 
 /**
  * @brief Arduino setup function.

@@ -16,11 +16,11 @@
 /* Include Statements */
 #include <arduino.h>
 
-class ultrasonic_sensor {
+class UltrasonicSensor {
     public:
 
         void ultrasonicSensorInit(void);
-        void ultrasonicSensorTest(void);
+        void ultrasonicSensorPrintData(uint16_t* distance);
         void ultrasonicGetDistance(uint16_t* retval);
     
     private:

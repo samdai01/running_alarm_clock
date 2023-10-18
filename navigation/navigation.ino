@@ -12,3 +12,18 @@
 /* Include Statements */
 #include <avr/wdt.h>
 #include "simple_obstacle_avoidance.h"
+
+/* Objects */
+
+UltrasonicSensor ultrasonic;
+
+void setup() {
+    Serial.begin(9600);
+    ultrasonic.ultrasonicSensorInit();
+}
+
+void loop() {
+    uint16_t distance;
+    ultrasonic.ultrasonicGetDistance(&distance);
+    ultrasonic.ultrasonicSensorPrintData(&distance);
+}

@@ -11,7 +11,7 @@
 /* Include Statements */
 #include "motor.h"
 
-void motor::motorInit(void) {
+void Motor::motorInit(void) {
     pinMode(PWMA, OUTPUT);
     pinMode(PWMB, OUTPUT);
     pinMode(A_IN, OUTPUT);
@@ -19,7 +19,7 @@ void motor::motorInit(void) {
     pinMode(STBY, OUTPUT);
 }
 
-void motor::forward(void) {
+void Motor::forward(void) {
     digitalWrite(STBY, HIGH);
 
     digitalWrite(A_IN, HIGH);
@@ -29,7 +29,7 @@ void motor::forward(void) {
     analogWrite(PWMB, SPEED);
 }
 
-void motor::backward(void) {
+void Motor::backward(void) {
     digitalWrite(STBY, HIGH);
 
     digitalWrite(A_IN, LOW);
@@ -39,7 +39,7 @@ void motor::backward(void) {
     analogWrite(PWMB, SPEED);
 }
 
-void motor::left(void) {
+void Motor::left(void) {
     digitalWrite(STBY, HIGH);
 
     digitalWrite(A_IN, HIGH);
@@ -49,7 +49,7 @@ void motor::left(void) {
     analogWrite(PWMB, SPEED);
 }
 
-void motor::right(void) {
+void Motor::right(void) {
     digitalWrite(STBY, HIGH);
 
     digitalWrite(A_IN, LOW);
@@ -59,11 +59,9 @@ void motor::right(void) {
     analogWrite(PWMB, SPEED);
 }
 
-void motor::stop(void) {
+void Motor::stop(void) {
     analogWrite(PWMA, 0);
     analogWrite(PWMB, 0);
 
     digitalWrite(STBY, LOW);
 }
-
-

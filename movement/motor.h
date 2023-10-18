@@ -13,7 +13,7 @@
 
 #include <arduino.h>
 
-class motor {
+class Motor {
     public:
         void motorInit(void);
         void forward(void);
