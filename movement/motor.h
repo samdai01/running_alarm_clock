@@ -28,7 +28,7 @@ class Motor {
         #define B_IN 8
         #define A_IN 7
         #define STBY 3
-        #define SPEED 220
+        #define SPEED 150
 };
 
 #endif
