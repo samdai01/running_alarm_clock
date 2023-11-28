@@ -81,7 +81,14 @@ int Compass::CompassGetAngle(float *angle, MPU6050 *gyroscope) {
         change_in_angle = 0.0;
     }
 
-    angle_from_center += change_in_angle;
+    angle_from_center -= change_in_angle;
+
+    if (angle_from_center > 360.0) {
+        angle_from_center -= 360.0;
+    } else if (angle_from_center < 0.0) {
+        angle_from_center += 360.0;
+    } 
+
     *angle = angle_from_center;
     return 0;
 }

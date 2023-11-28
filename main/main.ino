@@ -9,32 +9,67 @@
  * 
  */
 
+/* Define constants */
+
+#define DEBUG 1
+
 /* Include files */
 #include <avr/wdt.h>
 #include <simple_obstacle_avoidance.h>
 #include <motor.h>
+#include <MPU6050.h>
+#include <compass.h>
 
+/* Onboard Module Objects */
 UltrasonicSensor ultrasonic;
 Motor alarm_clock_motor;
+MPU6050 gyroscope;
+Compass OnboardGyro;
 
 void setup() {
     Serial.begin(9600);
     ultrasonic.ultrasonicSensorInit();
     alarm_clock_motor.motorInit();      // initializing motor pins
+    OnboardGyro.CompassInit(&gyroscope);
+    OnboardGyro.CompassCalibrate(&gyroscope);
 }
 
 void loop() {
     uint16_t distance;
     ultrasonic.ultrasonicGetDistance(&distance);
+#if DEBUG
+    Serial.print("Current distance is: ");
+    Serial.println(distance);
+#endif
+    static float yaw;
 
     if (distance < 30) {
       alarm_clock_motor.stop();
-      delay(1000);
-      long second_to_rotate = random(0, 5);
-      alarm_clock_motor.left();
-      delay(second_to_rotate * 1000);
-      alarm_clock_motor.forward();
-    } else {
-      alarm_clock_motor.forward();
+      OnboardGyro.CompassGetAngle(&yaw, &gyroscope);
+
+      float yaw_left_min_rotate = yaw - 30.0;
+      float yaw_right_min_rotate = yaw + 30.0;
+      float new_angle = random(yaw_left_min_rotate, yaw_right_min_rotate);
+
+      if (new_angle < 0.0) {
+        new_angle += 360.0;
+      }
+
+      if (new_angle > 360.0) {
+        new_angle -= 360.0;
+      }
+#if DEBUG
+      Serial.print("Current yaw is: ");
+      Serial.println(yaw);
+      Serial.print("Left boarder: ");
+      Serial.println(yaw_left_min_rotate);
+      Serial.print("Right Border: ");
+      Serial.println(yaw_right_min_rotate);
+      Serial.print("New angle to rotate to: ");
+      Serial.println(new_angle);
+      Serial.print("Rationalized new angle: ");
+      Serial.println(new_angle);
+      delay(30000);
+#endif
     }
 }
