@@ -15,7 +15,7 @@
 
 /* Include files */
 #include <avr/wdt.h>
-#include <simple_obstacle_avoidance.h>
+#include <ultrasonic.h>
 #include <motor.h>
 #include <MPU6050.h>
 #include <compass.h>
@@ -36,12 +36,8 @@ void setup() {
 
 void loop() {
     uint16_t distance;
-    ultrasonic.ultrasonicGetDistance(&distance);
-#if DEBUG
-    Serial.print("Current distance is: ");
-    Serial.println(distance);
-#endif
     static float yaw;
+    ultrasonic.ultrasonicGetDistance(&distance);
 
     if (distance < 30) {
       alarm_clock_motor.stop();
@@ -58,18 +54,5 @@ void loop() {
       if (new_angle > 360.0) {
         new_angle -= 360.0;
       }
-#if DEBUG
-      Serial.print("Current yaw is: ");
-      Serial.println(yaw);
-      Serial.print("Left boarder: ");
-      Serial.println(yaw_left_min_rotate);
-      Serial.print("Right Border: ");
-      Serial.println(yaw_right_min_rotate);
-      Serial.print("New angle to rotate to: ");
-      Serial.println(new_angle);
-      Serial.print("Rationalized new angle: ");
-      Serial.println(new_angle);
-      delay(30000);
-#endif
     }
 }
