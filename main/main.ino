@@ -38,15 +38,20 @@ void setup() {
 void loop() {
     uint16_t distance;
     static float yaw;
+    float turn_around_yaw;
     ultrasonic.ultrasonicGetDistance(&distance);
 
     if (distance < 30) {
       alarm_clock_motor.stop();
       OnboardGyro.CompassGetAngle(&yaw, &gyroscope);
 
-      float test_angle = 473.5;
+      Serial.print("Current Yaw: ");
+      Serial.println(yaw);
 
-      test_angle = naturalizeAngle(test_angle);
-      Serial.println(test_angle);
+      turn_around_yaw = getTurnAroundAngle(yaw);
+
+      Serial.print("Turn around Yaw is: ");
+      Serial.println(turn_around_yaw);
+
     }
 }
