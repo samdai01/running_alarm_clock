@@ -19,6 +19,7 @@
 #include <motor.h>
 #include <MPU6050.h>
 #include <compass.h>
+#include <direction.h>
 
 /* Onboard Module Objects */
 UltrasonicSensor ultrasonic;
@@ -43,16 +44,9 @@ void loop() {
       alarm_clock_motor.stop();
       OnboardGyro.CompassGetAngle(&yaw, &gyroscope);
 
-      float yaw_left_min_rotate = yaw - 30.0;
-      float yaw_right_min_rotate = yaw + 30.0;
-      float new_angle = random(yaw_left_min_rotate, yaw_right_min_rotate);
+      float test_angle = 473.5;
 
-      if (new_angle < 0.0) {
-        new_angle += 360.0;
-      }
-
-      if (new_angle > 360.0) {
-        new_angle -= 360.0;
-      }
+      test_angle = naturalizeAngle(test_angle);
+      Serial.println(test_angle);
     }
 }

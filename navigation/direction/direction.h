@@ -8,6 +8,9 @@
 #ifndef NEW_DIRECTION_H_
 #define NEW_DIRECTION_H_
 
+/* Include Files */
+#include <Arduino.h>
+
 /* Enumerations */
 
 /**

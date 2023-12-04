@@ -6,7 +6,7 @@
  */
 
 /* Include Files */
-#include "new_direction.h"
+#include "direction.h"
 
 /* Functions */
 
