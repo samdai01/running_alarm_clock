@@ -35,6 +35,7 @@ int Compass::CompassInit(MPU6050* gyroscope) {
         delay(10);
         cout += 1;
 
+        // fail if 10 attempts to get gyroscope ID does not set
         if (cout > 10) {
             return 1;
         }
@@ -47,12 +48,14 @@ int Compass::CompassInit(MPU6050* gyroscope) {
 
 /**
  * @brief Calibrate the compass by using mean filtering of z axis angular velocity
+ *        NOTE: do not move the alarm clock while this function is running
  * @param gyroscope - a pointer to a gyroscope object
  * @return int - status field
  */
 int Compass::CompassCalibrate(MPU6050 *gyroscope) {
-    unsigned short times = 100;
+    unsigned short times = 100; 
 
+    // obtain average drift over 100 read attempts
     for (int i = 0; i < 100; i++) {
         angular_velocity = gyroscope->getRotationZ();
         sensor_drift += angular_velocity;
@@ -74,15 +77,20 @@ int Compass::CompassGetAngle(float *angle, MPU6050 *gyroscope) {
     change_in_time = (current - past) / 1000.0;
     past = current;
 
+    // obtain the change in angle from initialize by multiplying angular velocity over change in time
     angular_velocity = gyroscope->getRotationZ();
     float change_in_angle = (angular_velocity - sensor_drift) / 131.0 * change_in_time;
-
+    
+    // pause out any small change in angle as noise
     if (fabs(change_in_angle) < 0.05) {
         change_in_angle = 0.0;
     }
 
+    // subtract due to orientation of right/left
     angle_from_center -= change_in_angle;
-
+    
+    // naturalize angle to within 360.0
+    // TODO: use new naturalization function
     if (angle_from_center > 360.0) {
         angle_from_center -= 360.0;
     } else if (angle_from_center < 0.0) {

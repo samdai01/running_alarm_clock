@@ -10,8 +10,7 @@
  */
 
 /* Define constants */
-
-#define DEBUG 1
+#define DEBUG 0
 
 /* Include files */
 #include <avr/wdt.h>
@@ -29,32 +28,40 @@ Compass OnboardGyro;
 
 void setup() {
     Serial.begin(9600);
-    ultrasonic.ultrasonicSensorInit();
-    alarm_clock_motor.motorInit();      // initializing motor pins
-    OnboardGyro.CompassInit(&gyroscope);
-    OnboardGyro.CompassCalibrate(&gyroscope);
+    ultrasonic.ultrasonicSensorInit();          // Initializing ultrasonic
+    alarm_clock_motor.motorInit();              // initializing motor pins
+    OnboardGyro.CompassInit(&gyroscope);        // Initialize compass
+    OnboardGyro.CompassCalibrate(&gyroscope);   // Calibrating Compass
 }
 
+// DOES NOT END
 void loop() {
     uint16_t distance;
     static float yaw;
     float turn_around_yaw;
     bool clockwise;
+
+    // Move forward and get distance to object in front
     ultrasonic.ultrasonicGetDistance(&distance);
     alarm_clock_motor.forward();
 
     if (distance < 30) {
+      // stop and obtain yaw
       alarm_clock_motor.stop();
       OnboardGyro.CompassGetAngle(&yaw, &gyroscope);
 
+#if DEBUG
       Serial.print("Current Yaw: ");
       Serial.println(yaw);
-
+#endif
+      // obtain desired yaw
       turn_around_yaw = getTurnAroundAngle(yaw);
 
+#if DEBUG
       Serial.print("Turn around Yaw is: ");
       Serial.println(turn_around_yaw);
-
+#endif
+      // determine direction to rotate
       clockwise = turnClockwise(yaw, turn_around_yaw);
 
       if (clockwise) {
@@ -70,5 +77,8 @@ void loop() {
           delay(5);
         }
       }
+
+      alarm_clock_motor.stop();
+      delay(1000);
     }
 }
