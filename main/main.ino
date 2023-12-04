@@ -39,7 +39,9 @@ void loop() {
     uint16_t distance;
     static float yaw;
     float turn_around_yaw;
+    bool clockwise;
     ultrasonic.ultrasonicGetDistance(&distance);
+    alarm_clock_motor.forward();
 
     if (distance < 30) {
       alarm_clock_motor.stop();
@@ -53,5 +55,20 @@ void loop() {
       Serial.print("Turn around Yaw is: ");
       Serial.println(turn_around_yaw);
 
+      clockwise = turnClockwise(yaw, turn_around_yaw);
+
+      if (clockwise) {
+        while (fabs(yaw - turn_around_yaw) >= 5) {
+          alarm_clock_motor.right();
+          OnboardGyro.CompassGetAngle(&yaw, &gyroscope);
+          delay(5);
+        }
+      } else {
+        while (fabs(yaw - turn_around_yaw) >= 5) {
+          alarm_clock_motor.left();
+          OnboardGyro.CompassGetAngle(&yaw, &gyroscope);
+          delay(5);
+        }
+      }
     }
 }
