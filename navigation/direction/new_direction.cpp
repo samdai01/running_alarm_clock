@@ -41,10 +41,126 @@ float naturalizeAngle(float angle) {
 /**
  * @brief Obtain a random turn around angle within a specified range (see navigation
  *        documentation)
- * @param angle 
+ * @param angle -> guaranteed to be naturalized to [0, 360)
  * @return float 
  */
 float getTurnAroundAngle(float angle) {
-    
+    float turn_around_angle;
+    Sector rotation_sector;
+
+    rotation_sector = random(0, 3);
+
+    if (angle >= 0.0 && angle < 60.0) {
+        switch(rotation_sector) {
+            case LEFT:
+                turn_around_angle = random(120.0, 180.0);
+                break;
+            case CENTER:
+                turn_around_angle = random(180.0, 240.0);
+                break;
+            case RIGHT:
+                turn_around_angle = random(240.0, 300.0);
+                break;
+            default:
+                turn_around_angle = 0.0;
+        }
+    } else if (angle >= 60.0 && angle < 120.0) {
+        switch(rotation_sector) {
+            case LEFT:
+                turn_around_angle = random(180.0, 240.0);
+                break;
+            case CENTER:
+                turn_around_angle = random(240.0, 300.0);
+                break;
+            case RIGHT:
+                turn_around_angle = random(300.0, 360.0);
+                break;
+            default:
+                turn_around_angle = 0.0;
+        }
+    } else if (angle >= 120.0 && angle < 180.0) {
+        switch(rotation_sector) {
+            case LEFT:
+                turn_around_angle = random(240.0, 300.0);
+                break;
+            case CENTER:
+                turn_around_angle = random(300.0, 360.0);
+                break;
+            case RIGHT:
+                turn_around_angle = random(0.0, 60.0);
+                break;
+            default:
+                turn_around_angle = 0.0;
+        }
+    } else if (angle >= 180.0 && angle < 240.0) {
+        switch(rotation_sector) {
+            case LEFT:
+                turn_around_angle = random(300.0, 360.0);
+                break;
+            case CENTER:
+                turn_around_angle = random(0.0, 60.0);
+                break;
+            case RIGHT:
+                turn_around_angle = random(60.0, 120.0);
+                break;
+            default:
+                turn_around_angle = 0.0;
+        }
+    } else if (angle >= 240.0 && angle < 300.0) {
+        switch(rotation_sector) {
+            case LEFT:
+                turn_around_angle = random(0.0, 60.0);
+                break;
+            case CENTER:
+                turn_around_angle = random(60.0, 120.0);
+                break;
+            case RIGHT:
+                turn_around_angle = random(120.0, 180.0);
+                break;
+            default:
+                turn_around_angle = 0.0;
+        }
+    } else if (angle >= 300.0 && angle < 360.0) {
+        switch(rotation_sector) {
+            case LEFT:
+                turn_around_angle = random(60.0, 120.0);
+                break;
+            case CENTER:
+                turn_around_angle = random(120.0, 180.0);
+                break;
+            case RIGHT:
+                turn_around_angle = random(180.0, 240.0);
+                break;
+            default:
+                turn_around_angle = 0.0;
+        }
+    }
+
+    return turn_around_angle;
 }
 
+/**
+ * @brief Takes a given angle represents the current yaw, and a desired yaw for
+ *        the alarm clock and determines if turning clockwise (right) would be
+ *        the closest (angular distance wise)
+ * 
+ * @param current_angle -> guaranteed to be naturalized to [0, 360)
+ * @param desired_angle -> guaranteed to be naturalized to [0, 360)
+ * @return true 
+ * @return false 
+ */
+bool turnClockwise(float current_angle, float desired_angle) {
+    int clockwise_distance;
+    int cclockwise_distance;
+    
+    // obtain angular distances in both directions
+    clockwise_distance = ((int)desired_angle - (int)current_angle + 360) % 360;
+    cclockwise_distance = ((int) current_angle - (int)desired_angle + 360) % 360;
+
+    if (clockwise_distance < cclockwise_distance) {
+        return true;
+    } else {
+        return false;
+    }
+    
+}

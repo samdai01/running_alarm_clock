@@ -8,6 +8,18 @@
 #ifndef NEW_DIRECTION_H_
 #define NEW_DIRECTION_H_
 
+/* Enumerations */
+
+/**
+ * @brief Enumerations representing the subdivisions of available angles for 
+ *        the alarm clock to rotate once it encounters an obstacle in front
+ */
+typedef enum {
+   LEFT,
+   CENTER,
+   RIGHT
+} Sector;
+
 /* Functions */
 
 /* Takes a given angle and naturalizes it to an equivalent on the 360 degree scale */
